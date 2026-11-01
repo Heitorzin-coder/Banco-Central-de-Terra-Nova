@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102f2a">
+  <title>BCTN — Banco Central de Terra Nova</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">₮</span><span>BCTN<small>BANCO CENTRAL DE TERRA NOVA</small></span></a>
+    <span class="fiction">SISTEMA FICTÍCIO • RPG</span>
+  </header>
+
+  <main class="shell">
+    <section id="auth-view" class="auth-layout">
+      <div class="intro">
+        <p class="eyebrow">SISTEMA FINANCEIRO NACIONAL</p>
+        <h1>Seu dinheiro.<br><em>Sua Terra Nova.</em></h1>
+        <p>Uma plataforma bancária fictícia para movimentar a economia do RPG.</p>
+        <div class="mini-note">TN$ · Transferências entre jogadores · Extrato digital</div>
+      </div>
+      <div class="panel auth-panel">
+        <div class="tabs">
+          <button class="tab active" id="show-login">Entrar</button>
+          <button class="tab" id="show-signup">Criar conta</button>
+        </div>
+        <form id="login-form">
+          <h2>Bem-vindo de volta</h2>
+          <label>E-mail<input id="login-email" type="email" autocomplete="email" required></label>
+          <label>Senha<input id="login-password" type="password" autocomplete="current-password" required minlength="8"></label>
+          <button class="primary" type="submit">Entrar na conta</button>
+        </form>
+        <form id="signup-form" class="hidden">
+          <h2>Abrir conta BCTN</h2>
+          <label>Nome no RPG<input id="signup-name" maxlength="40" required placeholder="Ex.: Senador SirHeitor"></label>
+          <label>E-mail<input id="signup-email" type="email" autocomplete="email" required></label>
+          <label>Senha<input id="signup-password" type="password" autocomplete="new-password" minlength="8" required></label>
+          <button class="primary" type="submit">Criar minha conta</button>
+          <p class="hint">Uma conta TN$ e uma chave fictícia serão criadas automaticamente.</p>
+        </form>
+        <p id="auth-message" class="message" role="status"></p>
+      </div>
+    </section>
+
+    <section id="bank-view" class="hidden">
+      <div class="welcome-row">
+        <div><p class="eyebrow">ÁREA DO CORRENTISTA</p><h1>Olá, <span id="display-name">jogador</span>.</h1></div>
+        <button id="logout" class="quiet">Sair ↗</button>
+      </div>
+      <div class="balance-card">
+        <div><p>Saldo disponível</p><div class="balance" id="balance">TN$ 0,00</div><small>Conta digital Terra Nova</small></div>
+        <div class="coin-symbol">₮</div>
+      </div>
+      <div class="dashboard-grid">
+        <section class="panel account-panel">
+          <p class="eyebrow">MINHA CONTA</p><h2>Dados bancários</h2>
+          <div class="data-line"><span>Banco</span><strong>BCTN · 001</strong></div>
+          <div class="data-line"><span>Moeda</span><strong>TN$</strong></div>
+          <div class="data-line"><span>Minha chave TN$</span><strong id="pix-key">—</strong></div>
+          <p class="hint">Compartilhe sua chave com outros jogadores para receber transferências.</p>
+        </section>
+        <section class="panel transfer-panel">
+          <p class="eyebrow">PAGAMENTOS</p><h2>Nova transferência</h2>
+          <form id="transfer-form">
+            <label>Chave TN$ do destinatário<input id="recipient-key" required placeholder="TNXXXXXXXXXX" autocapitalize="characters"></label>
+            <label>Valor (TN$)<input id="transfer-amount" type="number" min="0.01" max="1000000" step="0.01" required placeholder="0,00"></label>
+            <label>Descrição (opcional)<input id="transfer-description" maxlength="100" placeholder="Ex.: Pagamento de campanha"></label>
+            <button class="primary" type="submit">Transferir TN$</button>
+          </form>
+          <p id="transfer-message" class="message" role="status"></p>
+        </section>
+      </div>
+      <section class="panel history-panel">
+        <div class="history-heading"><div><p class="eyebrow">MOVIMENTAÇÕES</p><h2>Extrato recente</h2></div><button id="refresh" class="quiet">Atualizar ↻</button></div>
+        <div id="history"><p class="hint">Carregando movimentações...</p></div>
+      </section>
+    </section>
+    <footer>Banco fictício para RPG. Não é uma instituição financeira e não utiliza o sistema Pix real.</footer>
+  </main>
+</body>
+</html>
